@@ -10,4 +10,4 @@ pip install stable-baselines3
 
 
 
-tensorboard.exe --logdir tlog/ppo
+tensorboard.exe --logdir tlog/FlappyBird/ppo
