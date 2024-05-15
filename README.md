@@ -7,3 +7,7 @@ pip config set global.trusted-host pypi.tuna.tsinghua.edu.cn
 pip install stable-baselines3[extra]
 
 pip install stable-baselines3
+
+
+
+tensorboard.exe --logdir tlog/ppo
