@@ -1,0 +1,1 @@
+# pip install flappy-bird-gymnasium
