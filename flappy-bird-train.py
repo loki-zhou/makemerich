@@ -10,7 +10,7 @@ from stable_baselines3 import PPO
 # clock = pygame.time.Clock()
 # env = gymnasium.make("FlappyBird-v0", render_mode="human", use_lidar=False)
 env = gym.make("FlappyBird-v0",use_lidar=False)
-env = gym.wrappers.NormalizeObservation(env)
+# env = gym.wrappers.NormalizeObservation(env)
 monitor_dir = "./model_dir/FlappyBird/"
 os.makedirs(monitor_dir, exist_ok=True)
 
@@ -26,7 +26,7 @@ model = PPO("MlpPolicy", env, tensorboard_log="./tlog/FlappyBird/ppo/", verbose=
 # rl_model_3235000_steps.zip
 # model.set_parameters("model_dir/FlappyBird_best.zip")
 
-model.learn(total_timesteps=5_000_000, callback=checkpoint_callback)
+model.learn(total_timesteps=5_00_000, callback=checkpoint_callback)
 
 model.save("model_dir/FlappyBird_best.zip")
 env.close()
