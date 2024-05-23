@@ -37,7 +37,7 @@ policy_kwargs = dict(
 
 model = PPO("MlpPolicy", envs, policy_kwargs=policy_kwargs, tensorboard_log="./tlog/FlappyBird/ppo/",
             batch_size=256,
-            gamma=0.9,
+            gamma=0,
             verbose=1)
 
 # rl_model_3235000_steps.zip

@@ -11,3 +11,6 @@ pip install stable-baselines3
 
 
 tensorboard.exe --logdir tlog/FlappyBird/ppo
+
+# convert   jupyter to  markdown
+jupyter nbconvert --to markdown render_jupyter.ipynb
