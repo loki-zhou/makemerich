@@ -17,9 +17,9 @@ num_envs = 8
 # pygame.init()
 # clock = pygame.time.Clock()
 # env = gymnasium.make("FlappyBird-v0", render_mode="human", use_lidar=False)
-# env = gym.make("FlappyBird-v0",use_lidar=False)
+envs = gym.make("FlappyBird-v0",use_lidar=False)
 
-envs = DummyVecEnv([make_env() for _ in range(num_envs)])
+# envs = DummyVecEnv([make_env() for _ in range(num_envs)])
 
 monitor_dir = "./model_dir/FlappyBird/"
 os.makedirs(monitor_dir, exist_ok=True)
