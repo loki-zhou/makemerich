@@ -4,6 +4,7 @@ import flappy_bird_gymnasium
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import EvalCallback
 from stable_baselines3.common.env_util import make_vec_env
+from stable_baselines3.common.vec_env import VecFrameStack
 
 env_id = "FlappyBird-v0"
 n_training_envs = 1
@@ -14,8 +15,9 @@ eval_log_dir = "./eval_logs/"
 os.makedirs(eval_log_dir, exist_ok=True)
 # env = gymnasium.make("FlappyBird-v0", render_mode="human", use_lidar=False)
 # Initialize a vectorized training environment with default parameters
-train_env = make_vec_env(env_id, n_envs=n_training_envs, seed=0, env_kwargs={"use_lidar": False, "render_mode":"human"})
-
+# train_env = make_vec_env(env_id, n_envs=n_training_envs, seed=0, env_kwargs={"use_lidar": False, "render_mode":"human"})
+train_env = make_vec_env(env_id, n_envs=n_training_envs, seed=0, env_kwargs={"use_lidar": False})
+train_env = VecFrameStack(train_env, n_stack=4)
 # Separate evaluation env, with different parameters passed via env_kwargs
 # Eval environments can be vectorized to speed up evaluation.
 # eval_env = make_vec_env(env_id, n_envs=n_eval_envs, seed=0,
@@ -35,8 +37,15 @@ train_env = make_vec_env(env_id, n_envs=n_training_envs, seed=0, env_kwargs={"us
 # model.learn(int(5e5))
 # model.save()
 model = PPO.load("eval_logs/FlappyBird/best_model.zip")
-obs = train_env.reset()
-while True:
-    action, _states = model.predict(obs, deterministic=False)
-    obs, rewards, dones, info = train_env.step(action)
-    train_env.render("human")
+
+
+total_reward = 0
+done, truncated = False, False
+observation= train_env.reset()
+while not done and not truncated:
+    action, _states = model.predict(observation, deterministic=True)
+    observation, reward, done,  info = train_env.step(action)
+    total_reward = total_reward + reward
+    print("total_reward = ", total_reward)
+    # train_env.render()
+# print("total_reward = ", total_reward)
