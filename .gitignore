@@ -162,6 +162,7 @@ cython_debug/
 
 tlog
 model_dir
+eval_logs
 
 
 

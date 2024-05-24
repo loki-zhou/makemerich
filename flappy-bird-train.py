@@ -1,5 +1,5 @@
 # pip install flappy-bird-gymnasium
-import pygame
+# import pygame
 import flappy_bird_gymnasium
 import gymnasium as gym
 import os
@@ -7,6 +7,7 @@ from stable_baselines3.common.callbacks import CheckpointCallback
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv
 from stable_baselines3.common.vec_env import VecFrameStack
+from stable_baselines3.common.callbacks import EvalCallback
 
 
 
@@ -25,6 +26,10 @@ envs = gym.make("FlappyBird-v0",use_lidar=False)
 # envs = DummyVecEnv([make_env() for _ in range(num_envs)])
 env = DummyVecEnv([lambda: envs])
 env = VecFrameStack(env,4,channels_order='last')
+
+# env = EvalCallback(env, best_model_save_path='./model_dir/',
+#                              log_path='./tlogs/', eval_freq=1000,
+#                              deterministic=True, render=False)
 
 monitor_dir = "./model_dir/FlappyBird/"
 os.makedirs(monitor_dir, exist_ok=True)
@@ -48,7 +53,7 @@ model = PPO("MlpPolicy", env, policy_kwargs=policy_kwargs, tensorboard_log="./tl
 # rl_model_3235000_steps.zip
 # model.set_parameters("model_dir/FlappyBird_best.zip")
 
-model.learn(total_timesteps=1000_000, callback=checkpoint_callback)
+model.learn(total_timesteps=2000_000, callback=checkpoint_callback)
 
 # model.learn(total_timesteps=10_000, callback=checkpoint_callback)
 
