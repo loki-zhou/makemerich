@@ -14,3 +14,11 @@ tensorboard.exe --logdir tlog/FlappyBird/ppo
 
 # convert   jupyter to  markdown
 jupyter nbconvert --to markdown render_jupyter.ipynb
+
+
+# windows
+netstat -ano | findstr :6379
+
+docker run -d --name redis-server -p 6379:6379 --restart unless-stopped redis redis-server --requirepass "redis123"
+
+
