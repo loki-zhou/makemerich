@@ -31,16 +31,18 @@ synapse_0 = 2 * np.random.random((2, 1)) - 1
 for iter in range(10000):
     # forward propagation
     layer_0 = X
-    layer_1 = sigmoid(np.dot(layer_0, synapse_0))
+    #layer_1 = sigmoid(np.dot(layer_0, synapse_0))
+    layer_1 = np.dot(layer_0, synapse_0)
 
     # how much did we miss?
     layer_1_error = layer_1 - y
 
     # multiply how much we missed by the
     # slope of the sigmoid at the values in l1
-    layer_1_delta = layer_1_error * sigmoid_output_to_derivative(layer_1)
-    synapse_0_derivative = np.dot(layer_0.T, layer_1_delta)
-
+    #  (layer_1 - y)
+    #layer_1_delta = layer_1_error * sigmoid_output_to_derivative(layer_1)
+    #synapse_0_derivative = np.dot(layer_0.T, layer_1_delta)
+    synapse_0_derivative = -2*layer_1_error*layer_0.T
     # update weights
     synapse_0 -= synapse_0_derivative
 
